@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Servlet Assignment</title>
+</head>
+<body>
+    <h1>Java Servlet Assignment</h1>
+    <ul>
+        <li><a href="basic?name=Visitor">Basic Servlet</a></li>
+        <li><a href="config">ServletConfig Demo</a></li>
+        <li><a href="context">ServletContext Demo</a></li>
+        <li><a href="session">Session Management</a></li>
+        <li><a href="login">Login System</a></li>
+        <li><a href="cgi-bin/form_handler.py">CGI Example</a></li>
+    </ul>
+    
+    <h2>AJAX Demo</h2>
+    <form id="ajaxForm">
+        <input type="text" id="name" placeholder="Enter your name">
+        <button type="button" onclick="submitAjax()">Submit</button>
+    </form>
+    <div id="ajaxResponse"></div>
+    
+    <script>
+        function submitAjax() {
+            const name = document.getElementById('name').value;
+            const xhr = new XMLHttpRequest();
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    document.getElementById('ajaxResponse').innerHTML = 
+                        `<p>Status: ${response.status}</p>
+                         <p>Message: ${response.message}</p>`;
+                }
+            };
+            
+            xhr.open('POST', 'ajax', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('name=' + encodeURIComponent(name));
+        }
+    </script>
+</body>
+</html>
